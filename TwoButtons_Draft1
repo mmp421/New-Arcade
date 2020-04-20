@@ -123,7 +123,7 @@ void loop() {
   } 
   
   else if
- (storya = 2 && buttonState2 == HIGH) {
+ (storya = 1 && buttonState2 == HIGH) {
     display.println("story a2");
     display.display();
     storya++;
@@ -131,7 +131,7 @@ void loop() {
 
  //THIS WON'T WORK, ONLY SHOWS A2
  else if
- (storyb = 2 && buttonState2 == HIGH) {
+ (storyb = 1 && buttonState2 == HIGH) {
     display.println("story b2");
     display.display();
     storyb++;
