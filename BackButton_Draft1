@@ -1,0 +1,397 @@
+#include <SPI.h>
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+
+//FOR SCREEN
+//setup display
+Adafruit_SSD1306 display = Adafruit_SSD1306(128, 32, & Wire);
+
+
+//FOR BUTTONS
+//set pins
+const int buttonPin = 2;
+const int buttonPin2 = 7;
+const int buttonPin3 = 13;
+
+//base state of buttons
+int buttonState = 0;
+int buttonState2 = 0;
+int backButton = 0;
+
+//storyline counter 
+int storyblue = 0;
+  int storyblue_pressblue = 0;
+    int storyblue_pressblue_pressblue = 0;
+      int storyblue_pressblue_pressblue_pressblue = 0;
+      int storyblue_pressblue_pressblue_pressgreen = 0;
+    int storyblue_pressblue_pressgreen = 0;
+      int storyblue_pressblue_pressgreen_pressblue = 0;
+      int storyblue_pressblue_pressgreen_pressgreen = 0;
+  int storyblue_pressgreen = 0;
+    int storyblue_pressgreen_pressblue = 0;
+      int storyblue_pressgreen_pressblue_pressblue = 0;
+      int storyblue_pressgreen_pressblue_pressgreen = 0;
+    int storyblue_pressgreen_pressgreen = 0;
+      int storyblue_pressgreen_pressgreen_pressblue = 0;
+      int storyblue_pressgreen_pressgreen_pressgreen = 0;
+
+int storygreen = 0;
+  int storygreen_pressblue = 0;
+    int storygreen_pressblue_pressblue = 0;
+      int storygreen_pressblue_pressblue_pressblue = 0;
+      int storygreen_pressblue_pressblue_pressgreen = 0;
+    int storygreen_pressblue_pressgreen = 0;
+      int storygreen_pressblue_pressgreen_pressblue = 0;
+      int storygreen_pressblue_pressgreen_pressgreen = 0;
+  int storygreen_pressgreen = 0;
+    int storygreen_pressgreen_pressblue = 0;
+      int storygreen_pressgreen_pressblue_pressblue = 0;
+      int storygreen_pressgreen_pressblue_pressgreen = 0;
+    int storygreen_pressgreen_pressgreen = 0;
+      int storygreen_pressgreen_pressgreen_pressblue = 0;
+      int storygreen_pressgreen_pressgreen_pressgreen = 0;
+
+//counter
+int buttonPushCounter = 0;   // counter for the number of button presses
+
+void setup() {
+  Serial.begin(9600);
+
+  //FOR SCREEN
+  //start display
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C
+  display.display();
+  delay(100);
+
+  //clear screen
+  display.clearDisplay();
+  display.display();
+
+
+  //FOR BUTTONS
+  //set integers for state change
+  pinMode(buttonPin, INPUT);
+  pinMode(buttonPin2, INPUT);
+  pinMode(buttonPin3, INPUT);
+  digitalWrite(buttonPin, LOW);
+  digitalWrite(buttonPin2, LOW);
+  digitalWrite(buttonPin3, LOW);
+
+}
+
+void loop() {
+
+  //FOR SCREEN
+  //display text
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.setCursor(0, 0);
+
+  delay(100);
+  display.clearDisplay(); 
+
+
+  //FOR BUTTONS
+  //read state
+  buttonState = digitalRead(buttonPin);
+  buttonState2 = digitalRead(buttonPin2);
+  backButton = digitalRead(buttonPin3);
+
+
+  //STORY PATHWAY
+  
+  //////
+  //display start screen 
+  //////
+  
+  if (buttonPushCounter == 0) {
+    display.println("start = press your favorite button");
+    display.display();
+    buttonPushCounter++;
+  }
+
+  
+  //////
+  //first page of story, two different paths (one per storyline) 
+  //////
+  
+  else if
+  ((buttonPushCounter == 1) && buttonState == HIGH) {
+    display.println("blue");
+    display.display();
+    buttonPushCounter++;
+    storyblue++;
+  }
+
+  else if 
+  ((buttonPushCounter == 1) && buttonState2 == HIGH) {
+    display.println("green");
+    display.display();
+    buttonPushCounter++;
+    storygreen++;
+  }
+
+// HOW TO DO A BACK BUTTON? THIS ONE DOESN'T WORK. WHEN I TOOK OUT "buttonPushCounter++" FROM THE PREVIOUS TWO PATHS, IT GOES BACK AND CAN GO AHEAD TO THOSE PATHS, BUT THEN IT IS UNABLE TO CONTINUE FORWARD.
+  else if
+  ((buttonPushCounter == 1) && backButton == HIGH) {
+    buttonPushCounter = buttonPushCounter - 1;
+  }
+  
+  //////
+  //second page of story, four different paths (two per storyline) 
+  //////
+  
+  else if
+  (storyblue == 1 && buttonState == HIGH) {
+    display.println("blue then blue");
+    display.display();
+    storyblue++;
+    storyblue_pressblue++;
+  }
+
+    else if
+ (storyblue == 1 && buttonState2 == HIGH) {
+    display.println("blue then green");
+    display.display();
+    storyblue++;
+    storyblue_pressgreen++;
+  }
+ 
+ else if
+ (storygreen == 1 && buttonState == HIGH) {
+    display.println("green then blue");
+    display.display();
+    storygreen++;
+    storygreen_pressblue++;
+  }
+
+ else if
+ (storygreen == 1 && buttonState2 == HIGH) {
+    display.println("green then green");
+    display.display();
+    storygreen++;
+    storygreen_pressgreen++;
+  }
+
+  //////
+  //third page of story, eight different paths (two per storyline) 
+  //////
+  
+   else if
+  (storyblue == 2 && storyblue_pressblue == 1 && buttonState == HIGH) {
+    display.println("blue then blue then blue");
+    display.display();
+    storyblue++;
+    storyblue_pressblue++;
+    storyblue_pressblue_pressblue++; 
+  }
+
+    else if
+ (storyblue == 2 && storyblue_pressblue == 1 && buttonState2 == HIGH) {
+    display.println("blue then blue then green");
+    display.display();
+    storyblue++;
+    storyblue_pressblue++;
+    storyblue_pressblue_pressgreen++;
+  }
+
+     else if
+  (storyblue == 2 && storyblue_pressgreen == 1 && buttonState == HIGH) {
+    display.println("blue then green then blue");
+    display.display();
+    storyblue++;
+    storyblue_pressgreen++;
+    storyblue_pressgreen_pressblue++; 
+  }
+
+    else if
+ (storyblue == 2 && storyblue_pressgreen == 1 && buttonState2 == HIGH) {
+    display.println("blue then green then green");
+    display.display();
+    storyblue++;
+    storyblue_pressgreen++;
+    storyblue_pressgreen_pressgreen++;
+  }
+
+   else if
+  (storygreen == 2 && storygreen_pressblue == 1 && buttonState == HIGH) {
+    display.println("green then blue then blue");
+    display.display();
+    storygreen++;
+    storygreen_pressblue++;
+    storygreen_pressblue_pressblue++; 
+  }
+
+    else if
+ (storygreen == 2 && storygreen_pressblue == 1 && buttonState2 == HIGH) {
+    display.println("green then blue then green");
+    display.display();
+    storygreen++;
+    storygreen_pressblue++;
+    storygreen_pressblue_pressgreen++;
+  }
+
+     else if
+  (storygreen == 2 && storygreen_pressgreen == 1 && buttonState == HIGH) {
+    display.println("green then green then blue");
+    display.display();
+    storygreen++;
+    storygreen_pressgreen++;
+    storygreen_pressgreen_pressblue++; 
+  }
+
+    else if
+  (storygreen == 2 && storygreen_pressgreen == 1 && buttonState2 == HIGH) {
+    display.println("green then green then green");
+    display.display();
+    storygreen++;
+    storygreen_pressgreen++;
+    storygreen_pressgreen_pressgreen++;
+  }
+
+  //////
+  //fourth page of story, sixteen different paths (two per storyline) 
+  //////
+
+  //start with blue 
+  
+   else if
+  (storyblue_pressblue == 2 && storyblue_pressblue_pressblue == 1 && buttonState == HIGH) {
+    display.println("blue then blue then blue then blue");
+    display.display();
+    storyblue_pressblue_pressblue++; 
+    storyblue_pressblue_pressblue_pressblue++;
+  }
+
+     else if
+  (storyblue_pressblue == 2 && storyblue_pressblue_pressblue == 1 && buttonState2 == HIGH) {
+    display.println("blue then blue then blue then green");
+    display.display();
+    storyblue_pressblue_pressblue++; 
+    storyblue_pressblue_pressblue_pressgreen++;
+  }
+
+     else if
+  (storyblue_pressblue == 2 && storyblue_pressblue_pressgreen == 1 && buttonState == HIGH) {
+    display.println("blue then blue then green then blue");
+    display.display();
+    storyblue_pressblue_pressgreen++; 
+    storyblue_pressblue_pressgreen_pressblue++;
+  }
+
+     else if
+  (storyblue_pressblue == 2 && storyblue_pressblue_pressgreen == 1 && buttonState2 == HIGH) {
+    display.println("blue then blue then green then green");
+    display.display();
+    storyblue_pressblue_pressgreen++; 
+    storyblue_pressblue_pressgreen_pressgreen++;
+  }
+
+///////
+
+ else if
+  (storyblue_pressgreen == 2 && storyblue_pressgreen_pressblue == 1 && buttonState == HIGH) {
+    display.println("blue then green then blue then blue");
+    display.display();
+    storyblue_pressgreen_pressblue++; 
+    storyblue_pressgreen_pressblue_pressblue++;
+  }
+
+     else if
+  (storyblue_pressgreen == 2 && storyblue_pressgreen_pressblue == 1 && buttonState2 == HIGH) {
+    display.println("blue then green then blue then green");
+    display.display();
+    storyblue_pressgreen_pressblue++; 
+    storyblue_pressgreen_pressblue_pressgreen++;
+  }
+
+     else if
+  (storyblue_pressgreen == 2 && storyblue_pressgreen_pressgreen == 1 && buttonState == HIGH) {
+    display.println("blue then green then green then blue");
+    display.display();
+    storyblue_pressgreen_pressgreen++; 
+    storyblue_pressgreen_pressgreen_pressblue++;
+  }
+
+     else if
+  (storyblue_pressgreen == 2 && storyblue_pressgreen_pressgreen == 1 && buttonState2 == HIGH) {
+    display.println("blue then green then green then green");
+    display.display();
+    storyblue_pressgreen_pressgreen++; 
+    storyblue_pressgreen_pressgreen_pressgreen++;
+  }
+
+ //start with green
+
+    else if
+  (storygreen_pressblue == 2 && storygreen_pressblue_pressblue == 1 && buttonState == HIGH) {
+    display.println("green then blue then blue then blue");
+    display.display();
+    storygreen_pressblue_pressblue++; 
+    storygreen_pressblue_pressblue_pressblue++;
+  }
+
+     else if
+  (storygreen_pressblue == 2 && storygreen_pressblue_pressblue == 1 && buttonState2 == HIGH) {
+    display.println("green then blue then blue then green");
+    display.display();
+    storygreen_pressblue_pressblue++; 
+    storygreen_pressblue_pressblue_pressgreen++;
+  }
+
+     else if
+  (storygreen_pressblue == 2 && storygreen_pressblue_pressgreen == 1 && buttonState == HIGH) {
+    display.println("green then blue then green then blue");
+    display.display();
+    storygreen_pressblue_pressgreen++; 
+    storygreen_pressblue_pressgreen_pressblue++;
+  }
+
+     else if
+  (storygreen_pressblue == 2 && storygreen_pressblue_pressgreen == 1 && buttonState2 == HIGH) {
+    display.println("green then blue then green then green");
+    display.display();
+    storygreen_pressblue_pressgreen++; 
+    storygreen_pressblue_pressgreen_pressgreen++;
+  }
+
+///////
+
+ else if
+  (storygreen_pressgreen == 2 && storygreen_pressgreen_pressblue == 1 && buttonState == HIGH) {
+    display.println("green then green then blue then blue");
+    display.display();
+    storygreen_pressgreen_pressblue++; 
+    storygreen_pressgreen_pressblue_pressblue++;
+  }
+
+     else if
+  (storygreen_pressgreen == 2 && storygreen_pressgreen_pressblue == 1 && buttonState2 == HIGH) {
+    display.println("green then green then blue then green");
+    display.display();
+    storygreen_pressgreen_pressblue++; 
+    storygreen_pressgreen_pressblue_pressgreen++;
+  }
+
+     else if
+  (storygreen_pressgreen == 2 && storygreen_pressgreen_pressgreen == 1 && buttonState == HIGH) {
+    display.println("green then green then green then blue");
+    display.display();
+    storygreen_pressgreen_pressgreen++; 
+    storygreen_pressgreen_pressgreen_pressblue++;
+  }
+
+     else if
+  (storygreen_pressgreen == 2 && storygreen_pressgreen_pressgreen == 1 && buttonState2 == HIGH) {
+    display.println("green then green then green then green");
+    display.display();
+    storygreen_pressgreen_pressgreen++; 
+    storygreen_pressgreen_pressgreen_pressgreen++;
+  }
+
+
+   
+  //loop bracket
+}
