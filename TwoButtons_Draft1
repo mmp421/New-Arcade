@@ -1,0 +1,141 @@
+#include <SPI.h>
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+
+//FOR SCREEN
+//setup display
+Adafruit_SSD1306 display = Adafruit_SSD1306(128, 32, & Wire);
+
+
+//FOR BUTTONS
+//set pins
+const int buttonPin = 2;
+const int buttonPin2 = 7;
+
+//base state of buttons
+int buttonState = 0;
+int buttonState2 = 0;
+
+//storyline counter 
+int storya = 0;
+int storyb = 0;
+
+//counter
+int buttonPushCounter = 0;   // counter for the number of button presses
+
+
+void setup() {
+  Serial.begin(9600);
+
+  //FOR SCREEN
+  //start display
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C
+  display.display();
+  delay(100);
+
+  //clear screen
+  display.clearDisplay();
+  display.display();
+
+
+  //FOR BUTTONS
+  //set integers for state change
+  pinMode(buttonPin, INPUT);
+  pinMode(buttonPin2, INPUT);
+  digitalWrite(buttonPin, LOW);
+  digitalWrite(buttonPin2, LOW);
+
+}
+
+void loop() {
+
+  //FOR SCREEN
+  //display text
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.setCursor(0, 0);
+
+  delay(100);
+  display.clearDisplay(); 
+
+
+  //FOR BUTTONS
+  //read state
+  buttonState = digitalRead(buttonPin);
+  buttonState2 = digitalRead(buttonPin2);
+  Serial.println(buttonState);
+  Serial.println(buttonState2);
+
+
+  //STORY PATHWAY
+  
+  //////
+  //display start screen 
+  //////
+  
+  if (buttonPushCounter == 0) {
+    display.println("start = press your favorite button");
+    display.display();
+    buttonPushCounter++;
+    storya = 0;
+    storyb = 0;
+  }
+
+  //////
+  //first page of story, two different paths (one per storyline) 
+  //////
+  
+  else if
+  ((buttonPushCounter == 1) && buttonState == HIGH) {
+    display.println("story a");
+    display.display();
+    buttonPushCounter++;
+    storya++;
+  }
+
+  else if 
+  ((buttonPushCounter == 1) && buttonState2 == HIGH) {
+    display.println("story b");
+    display.display();
+    buttonPushCounter++;
+    storyb++;
+  }
+  
+  //////
+  //second page of story, four different paths (two per storyline) 
+  //////
+  
+  else if
+  (storya = 1 && buttonState == HIGH) {
+    display.println("story a1");
+    display.display();
+    storya++;
+  }
+ 
+ //THIS WON'T WORK, ONLY SHOWS A1
+ else if
+ (storyb = 1 && buttonState == HIGH) {
+    display.println("story b1");
+    display.display();
+    storyb++;
+  } 
+  
+  else if
+ (storya = 2 && buttonState2 == HIGH) {
+    display.println("story a2");
+    display.display();
+    storya++;
+  }
+
+ //THIS WON'T WORK, ONLY SHOWS A2
+ else if
+ (storyb = 2 && buttonState2 == HIGH) {
+    display.println("story b2");
+    display.display();
+    storyb++;
+  }
+
+  //last bracket for end of loop function
+}
