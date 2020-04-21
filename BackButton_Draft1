@@ -106,7 +106,12 @@ void loop() {
   //display start screen 
   //////
 
+  Serial.println("buttonPushCounter = ");
   Serial.println(buttonPushCounter);
+  Serial.println("storyblue = ");
+  Serial.println(storyblue);
+  Serial.println("storygreen = ");
+  Serial.println(storygreen);
   
   if (buttonPushCounter == 0) {
     display.println("start = press your favorite button");
@@ -115,8 +120,10 @@ void loop() {
   }
 
   else if
-  (backButton == 1) {
-    buttonPushCounter = (buttonPushCounter - 1);
+  (buttonPushCounter == ??? && backButton == HIGH) {
+    buttonPushCounter = buttonPushCounter - 1;
+    storyblue = ???;
+    storygreen = ???;
   }
 
   //////
