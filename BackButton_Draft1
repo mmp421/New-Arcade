@@ -105,6 +105,8 @@ void loop() {
   //////
   //display start screen 
   //////
+
+  Serial.println(buttonPushCounter);
   
   if (buttonPushCounter == 0) {
     display.println("start = press your favorite button");
@@ -112,7 +114,11 @@ void loop() {
     buttonPushCounter++;
   }
 
-  
+  else if
+  (backButton == 1) {
+    buttonPushCounter = (buttonPushCounter - 1);
+  }
+
   //////
   //first page of story, two different paths (one per storyline) 
   //////
@@ -131,12 +137,6 @@ void loop() {
     display.display();
     buttonPushCounter++;
     storygreen++;
-  }
-
-// HOW TO DO A BACK BUTTON? THIS ONE DOESN'T WORK. WHEN I TOOK OUT "buttonPushCounter++" FROM THE PREVIOUS TWO PATHS, IT GOES BACK AND CAN GO AHEAD TO THOSE PATHS, BUT THEN IT IS UNABLE TO CONTINUE FORWARD.
-  else if
-  ((buttonPushCounter == 1) && backButton == HIGH) {
-    buttonPushCounter = buttonPushCounter - 1;
   }
   
   //////
@@ -390,8 +390,7 @@ void loop() {
     storygreen_pressgreen_pressgreen++; 
     storygreen_pressgreen_pressgreen_pressgreen++;
   }
-
-
    
   //loop bracket
+  
 }
