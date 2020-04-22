@@ -1,0 +1,144 @@
+#include <SPI.h>
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+
+//FOR SCREEN
+//setup display
+Adafruit_SSD1306 display = Adafruit_SSD1306(128, 32, & Wire);
+
+String myStr = "start";
+String inputBlue = "blue";
+String inputGreen = "green";
+int count = 0;
+int commaPos = 0;
+int blue = 0;
+int green = 0;
+int backButton = 0;
+int buttonPushCounter = 0;
+
+//FOR BUTTONS
+//set pins
+const int buttonPin = 2;
+const int buttonPin2 = 7;
+const int buttonPin3 = 13;
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+
+  //FOR BUTTONS
+  //set integers for state change
+  pinMode(buttonPin, INPUT);
+  pinMode(buttonPin2, INPUT);
+  pinMode(buttonPin3, INPUT);
+  digitalWrite(buttonPin, LOW);
+  digitalWrite(buttonPin2, LOW);
+  digitalWrite(buttonPin3, LOW);
+
+  //FOR SCREEN
+  //start display
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C
+  display.display();
+  delay(100);
+
+  //clear screen
+  display.clearDisplay();
+  display.display();
+}
+
+void loop() {
+  Serial.println("myStr = ");
+  Serial.println(myStr);
+  Serial.println("buttonPushCounter = ");
+  Serial.println(buttonPushCounter);
+  delay(1000);
+
+  //FOR SCREEN
+  //display text
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.setCursor(0, 0);
+
+  delay(100);
+  display.clearDisplay();
+
+  //FOR BUTTONS
+  //read state
+  blue = digitalRead(buttonPin);
+  green = digitalRead(buttonPin2);
+  backButton = digitalRead(buttonPin3);
+
+  //COUNTING PUSHES
+  if (buttonPushCounter == 0) {
+    display.println("start");
+    display.display();
+    buttonPushCounter++;
+  }
+
+
+  //BLUE VERSUS GREEN VERSUS REVERSE
+  else if
+  (blue == HIGH) {
+    myStr += ", ";
+    myStr += inputBlue;
+    count++;
+    buttonPushCounter++;
+
+  } else if
+  (green == HIGH) {
+    myStr += ", ";
+    myStr += inputGreen;
+    count++;
+    buttonPushCounter++;
+
+  }
+  else if
+  (buttonPushCounter >= 0 && backButton == HIGH) {
+    commaPos = myStr.lastIndexOf(",");
+    myStr.remove(commaPos, commaPos);
+    count--;
+    buttonPushCounter--;
+
+  }
+
+  ///////STORY PATH
+
+  else if (myStr == ("start, blue")) {
+    display.println("My friend George was");
+    Serial.println("isthisworkingblue");
+    display.display();
+  }
+
+    else if (myStr == ("starte, blue")) {
+    display.println("My friend George was");
+    Serial.println("isthisworkingblue");
+    display.display();
+  }
+
+  else if (myStr == ("start, blue, blue")) {
+    Serial.println("isthisworking_blueblue");
+    display.println("a bully.");
+    display.display();
+  }
+
+  
+  else if (myStr == ("starte, blue, blue")) {
+    Serial.println("isthisworking_blueblue");
+    display.println("a bully.");
+    display.display();
+  }
+  
+  else if (myStr == ("start, blue, green")) {
+    display.println("the nicest guy.");
+    display.display();
+    Serial.println("isthisworking_bluegreen");
+  }
+
+    else if (myStr == ("starte, blue, green")) {
+    display.println("the nicest guy.");
+    display.display();
+    Serial.println("isthisworking_bluegreen");
+  }
+}
