@@ -1,0 +1,242 @@
+// 42 MAX
+
+#include <SPI.h>
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+Adafruit_SSD1306 display = Adafruit_SSD1306(128, 32, & Wire);
+String myStr = "start";
+String inputb = "b";
+String inputg = "g";
+int count = 0;
+int commaPos = 0;
+int b = 0;
+int g = 0;
+int back = 0;
+int PushCounter = 0;
+const int bP = 2;
+const int bP2 = 7;
+const int bP3 = 13;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(bP, INPUT);
+  pinMode(bP2, INPUT);
+  pinMode(bP3, INPUT);
+  digitalWrite(bP, LOW);
+  digitalWrite(bP2, LOW);
+  digitalWrite(bP3, LOW);
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+  display.display();
+  delay(100);
+  display.clearDisplay();
+  display.display();
+}
+void loop() {
+  delay(1000);
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.setCursor(0, 0);
+  delay(100);
+  display.clearDisplay();
+  b = digitalRead(bP);
+  g = digitalRead(bP2);
+  back = digitalRead(bP3);
+
+  if (PushCounter == 0) {
+    display.println(F("press your favorite button"));
+    display.display();
+    PushCounter++;
+  }
+  else if (b == HIGH) {
+    myStr += ", ";
+    myStr += inputb;
+    count++;
+    PushCounter++;
+  }
+  else if (g == HIGH) {
+    myStr += ", ";
+    myStr += inputg;
+    count++;
+    PushCounter++;
+  }
+  else if
+  (PushCounter >= 0 && back == HIGH) {
+    commaPos = myStr.lastIndexOf(", ");
+    myStr.remove(commaPos, myStr.length() - commaPos);
+    count--;
+    PushCounter--;
+  }
+
+  //blue
+  else if (myStr == ("start, b")) {
+    display.println(F("b1"));
+    display.display();
+  }
+  else if (myStr == ("start, b, b")) {
+    display.println(F("b1b"));
+    display.display();
+  }
+  else if (myStr == ("start, b, b, b")) {
+    display.println(F("b1bb"));
+    display.display();
+  }
+  else if (myStr == ("start, b, b, b, b")) {
+    display.println(F("b1bbb"));
+    display.display();
+  }
+  else if (myStr == ("start, b, b, b, b, b")) {
+    display.println(F("b1bbbb"));
+    display.display();
+    
+  }                else if (myStr == ("start, b, b, b, b, g")) {
+    display.println(F("b1bbbg"));
+    display.display();
+  }     else if (myStr == ("start, b, b, b, g")) {
+    display.println(F("b1bbg"));
+    display.display();
+  }
+  else if (myStr == ("start, b, b, b, g, b")) {
+    display.println(F("b1bbgb"));
+    display.display();
+  } else if (myStr == ("start, b, b, b, g, g")) {
+    display.println(F("b1bbgg"));
+    display.display();
+  }
+  else if (myStr == ("start, b, b, g")) {
+    display.println(F("b1bg"));
+    display.display();
+  }
+  else if (myStr == ("start, b, b, g, b")) {
+    display.println(F("b1bgb"));
+    display.display();
+  }
+  else if (myStr == ("start, b, b, g, b, b")) {
+    display.println(F("b1bgbb"));
+    display.display();
+  }
+  else if (myStr == ("start, b, b, g, b, g")) {
+    display.println(F("b1bgbg"));
+    display.display();
+  }
+  else if (myStr == ("start, b, b, g, g")) {
+    display.println(F("b1bgg"));
+    display.display();
+  }
+  else if (myStr == ("start, b, b, g, g, b")) {
+    display.println(F("b1bggb"));
+    display.display();
+  }
+  else if (myStr == ("start, b, b, g, g, g")) {
+    display.println(F("b1bggg"));
+    display.display();
+  }
+  else if (myStr == ("start, b, g")) {
+    display.println(F("b1g"));
+    display.display();
+  }
+  else if (myStr == ("start, b, g, b")) {
+    display.println(F("b1gb"));
+    display.display();
+  }
+  else if (myStr == ("start, b, g, b, b")) {
+    display.println(F("b1gbb"));
+    display.display();
+  }
+  else if (myStr == ("start, b, g, b, b, b")) {
+    display.println(F("b1gbbb"));
+    display.display();
+  }
+  else if (myStr == ("start, b, g, b, b, g")) {
+    display.println(F("b1gbbg"));
+    display.display();
+  }
+  else if (myStr == ("start, b, g, b, g")) {
+    display.println(F("b1gbg"));
+    display.display();
+  }
+  else if (myStr == ("start, b, g, b, g, b")) {
+    display.println(F("b1gbgb"));
+    display.display();
+  }
+  else if (myStr == ("start, b, g, b, g, g")) {
+    display.println(F("b1gbgg"));
+    display.display();
+  }
+  else if (myStr == ("start, b, g, g")) {
+    display.println(F("b1gg"));
+    display.display();
+  }
+  else if (myStr == ("start, b, g, g, b")) {
+    display.println(F("b1ggb"));
+    display.display();
+  }
+  else if (myStr == ("start, b, g, g, b, b")) {
+    display.println(F("b1ggbb"));
+    display.display();
+  } else if (myStr == ("start, b, g, g, b, g")) {
+    display.println(F("b1ggbg"));
+    display.display();
+  }
+  else if (myStr == ("start, b, g, g, g")) {
+    display.println(F("b1ggg"));
+    display.display();
+  }
+  else if (myStr == ("start, b, g, g, g, b")) {
+    display.println(F("b1gggb"));
+    display.display();
+  }
+  else if (myStr == ("start, b, g, g, g, g")) {
+    display.println(F("b1gggg"));
+    display.display();
+  }
+
+
+
+
+  else if (myStr == ("start, g")) {
+    display.println(F("g1"));
+    display.display();
+  }
+  else if (myStr == ("start, g, b")) {
+    display.println(F("g1b"));
+    display.display();
+  }
+  else if (myStr == ("start, g, b, b")) {
+    display.println(F("g1bb"));
+    display.display();
+  }
+  else if (myStr == ("start, g, b, b, b")) {
+    display.println(F("g1bbb"));
+    display.display();
+  }
+  else if (myStr == ("start, g, b, b, b, b")) {
+    display.println(F("g1bbbb"));
+    display.display();
+  }
+  else if (myStr == ("start, g, b, b, b, g")) {
+    display.println(F("g1bbbg"));
+    display.display();
+  }
+  else if (myStr == ("start, g, b, b, g")) {
+    display.println(F("g1bbg"));
+    display.display();
+  }
+  else if (myStr == ("start, g, b, b, g, b")) {
+    display.println(F("g1bbgb"));
+    display.display();
+  }
+  else if (myStr == ("start, g, b, b, g, g")) {
+    display.println(F("g1bbgg"));
+    display.display();
+  }
+  else if (myStr == ("start, g, b, g")) {
+    display.println(F("g1bg"));
+    display.display();
+  }
+  else if (myStr == ("start, g, b, g, b")) {
+    display.println(F("g1bgb"));
+    display.display();
+  }
+
+}
