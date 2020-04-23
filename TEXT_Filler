@@ -1,0 +1,1006 @@
+#include <SPI.h>
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+
+//FOR SCREEN
+//setup display
+Adafruit_SSD1306 display = Adafruit_SSD1306(128, 32, & Wire);
+
+String myStr = "start";
+String inputBlue = "blue";
+String inputGreen = "green";
+int count = 0;
+int commaPos = 0;
+int blue = 0;
+int green = 0;
+int backButton = 0;
+int buttonPushCounter = 0;
+
+//FOR BUTTONS
+//set pins
+const int buttonPin = 2;
+const int buttonPin2 = 7;
+const int buttonPin3 = 13;
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+
+  //FOR BUTTONS
+  //set integers for state change
+  pinMode(buttonPin, INPUT);
+  pinMode(buttonPin2, INPUT);
+  pinMode(buttonPin3, INPUT);
+  digitalWrite(buttonPin, LOW);
+  digitalWrite(buttonPin2, LOW);
+  digitalWrite(buttonPin3, LOW);
+
+  //FOR SCREEN
+  //start display
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C
+  display.display();
+  delay(100);
+
+  //clear screen
+  display.clearDisplay();
+  display.display();
+}
+
+void loop() {
+  Serial.println("myStr = ");
+  Serial.println(myStr);
+  Serial.println("buttonPushCounter = ");
+  Serial.println(buttonPushCounter);
+  delay(1000);
+
+  //FOR SCREEN
+  //display text
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.setCursor(0, 0);
+
+  delay(100);
+  display.clearDisplay();
+
+  //FOR BUTTONS
+  //read state
+  blue = digitalRead(buttonPin);
+  green = digitalRead(buttonPin2);
+  backButton = digitalRead(buttonPin3);
+
+  //COUNTING PUSHES
+  if (buttonPushCounter == 0) {
+    display.println("press your favorite button");
+    display.display();
+    buttonPushCounter++;
+  }
+
+
+  //BLUE VERSUS GREEN VERSUS REVERSE
+  else if
+  (blue == HIGH) {
+    myStr += ", ";
+    myStr += inputBlue;
+    count++;
+    buttonPushCounter++;
+
+  } else if
+  (green == HIGH) {
+    myStr += ", ";
+    myStr += inputGreen;
+    count++;
+    buttonPushCounter++;
+
+  }
+  else if
+  (buttonPushCounter >= 0 && backButton == HIGH) {
+    commaPos = myStr.lastIndexOf(",");
+    myStr.remove(commaPos, myStr.length()-commaPos);
+    count--;
+    buttonPushCounter--;
+
+  }
+  
+                                                                   ///////STORY PATH - BLUE///////
+
+                                                                   ///////STORY PATH - BLUE///////
+
+                                                                   ///////STORY PATH - BLUE///////
+
+  //FIRST STEP
+  
+  else if (myStr == ("start, blue")) {
+    display.println("blue path");
+    display.display();
+  }
+
+      //SECOND STEP
+
+      else if (myStr == ("start, blue, blue")) {
+        display.println("blue path - blue");
+        display.display();
+      }
+
+            //THIRD STEP
+           
+            else if (myStr == ("start, blue, blue, blue")) {
+              display.println("blue path - blue - blue");
+              display.display();
+          }
+
+                //FOURTH STEP
+
+                else if (myStr == ("start, blue, blue, blue, blue")) {
+                  display.println("blue path - blue - blue - blue");
+                  display.display();
+                }
+
+                    //FIFTH STEP
+
+                    else if (myStr == ("start, blue, blue, blue, blue, blue")) {
+                      display.println("blue path - blue - blue - blue - blue");
+                      display.print();
+                    }
+
+                        //SIXTH STEP
+
+                        else if (myStr == ("start, blue, blue, blue, blue, blue, blue")) {
+                          display.println("blue path - blue - blue - blue - blue - blue");
+                          display.display();
+                        }
+                        
+                        //SIXTH STEP
+
+                        else if (myStr == ("start, blue, blue, blue, blue, blue, green")) {
+                          display.println("blue path - blue - blue - blue - blue - green");
+                          display.display();
+                        }
+
+                    //FIFTH STEP
+                    
+                    else if (myStr == ("start, blue, blue, blue, blue, green")) {
+                      display.println("blue path - blue - blue - blue - green");
+                      display.print();
+                    }
+
+                        //SIXTH STEP
+
+                        else if (myStr == ("start, blue, blue, blue, blue, green, blue")) {
+                          display.println("blue path - blue - blue - blue - green - blue");
+                          display.print();
+                        }
+                        
+                        //SIXTH STEP
+
+                        else if (myStr == ("start, blue, blue, blue, blue, green, green")) {
+                          display.println("blue path - blue - blue - blue - green - green");
+                          display.print();
+                        }
+
+
+                //FOURTH STEP
+
+                else if (myStr == ("start, blue, blue, blue, green")) {
+                  display.println("blue path - blue - blue - green");
+                  display.display();
+                }
+
+                    //FIFTH STEP
+
+                    else if (myStr == ("start, blue, blue, blue, green, blue")) {
+                      display.println("blue path - blue - blue - green - blue");
+                      display.display();
+                    }
+                    
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, blue, blue, blue, green, blue, blue")) {
+                          display.println("blue path - blue - blue - green - blue - blue");
+                          display.display();
+                        }
+                                            
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, blue, blue, blue, green, blue, green")) {
+                          display.println("blue path - blue - blue - green - blue - green");
+                          display.display();
+                        }
+
+                    //FIFTH STEP
+                    
+                    else if (myStr == ("start, blue, blue, blue, green, green")) {
+                      display.println("blue path - blue - blue - green - green");
+                      display.display();
+                    }
+                    
+                        //SIXTH STEP
+                        
+                        else if (myStr == ("start, blue, blue, blue, green, green, blue")) {
+                          display.println("blue path - blue - blue - green - green - blue");
+                          display.display();
+                        }
+                                            
+                        //SIXTH STEP
+                        
+                        else if (myStr == ("start, blue, blue, blue, green, green, green")) {
+                          display.println("blue path - blue - blue - green - green - green");
+                          display.display();
+                        }
+
+            //THIRD STEP
+            
+            else if (myStr == ("start, blue, blue, green")) {
+              display.println("blue path - blue - green");
+              display.display();
+          }
+
+                //FOURTH STEP
+                
+                else if (myStr == ("start, blue, blue, green, blue")) {
+                  display.println("blue path - blue - green - blue");
+                  display.display();
+                }
+
+                    //FIFTH STEP
+
+                    else if (myStr == ("start, blue, blue, green, blue, blue")) {
+                      display.println("blue path - blue - green - blue - blue");
+                      display.display();
+                    }
+                    
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, blue, blue, green, blue, blue, blue")) {
+                          display.println("blue path - blue - green - blue - blue - blue");
+                          display.display();
+                        }
+                                            
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, blue, blue, green, blue, blue, green")) {
+                          display.println("blue path - blue - green - blue - blue - green");
+                          display.display();
+                        }
+                    
+                    //FIFTH STEP
+
+                    else if (myStr == ("start, blue, blue, green, blue, green")) {
+                      display.println("blue path - blue - green - blue - green");
+                      display.display();
+                    }
+                                            
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, blue, blue, green, blue, green, blue")) {
+                          display.println("blue path - blue - green - blue - green - blue");
+                          display.display();
+                        }
+                                                                    
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, blue, blue, green, blue, green, green")) {
+                          display.println("blue path - blue - green - blue - green - green");
+                          display.display();
+                        }
+
+                //FOURTH STEP
+                
+                else if (myStr == ("start, blue, blue, green, green")) {
+                  display.println("blue path - blue - green - green");
+                  display.display();
+                }
+
+                    //FIFTH STEP
+
+                    else if (myStr == ("start, blue, blue, green, green, blue")) {
+                      display.println("blue path - blue - green - green - blue");
+                      display.display();
+                    }
+                    
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, blue, blue, green, green, blue, blue")) {
+                          display.println("blue path - blue - green - green - blue - blue");
+                          display.display();
+                        }
+                                            
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, blue, blue, green, green, blue, green")) {
+                          display.println("blue path - blue - green - green - blue - green");
+                          display.display();
+                        }
+                    
+                    //FIFTH STEP
+
+                    else if (myStr == ("start, blue, blue, green, green, green")) {
+                      display.println("blue path - blue - green - green - green");
+                      display.display();
+                    }
+                                            
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, blue, blue, green, green, green, blue")) {
+                          display.println("blue path - blue - green - green - green - blue");
+                          display.display();
+                        }
+                                                                    
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, blue, blue, green, green, green, green")) {
+                          display.println("blue path - blue - green - green - green - green");
+                          display.display();
+                        }
+
+      //SECOND STEP
+      
+      else if (myStr == ("start, blue, green")) {
+        display.println("blue path - green");
+        display.display();
+      }
+
+            //THIRD STEP
+            
+            else if (myStr == ("start, blue, green, blue")) {
+              display.println("blue path - green - blue");
+              display.display();
+            }
+
+                //FOURTH STEP
+                
+                else if (myStr == ("start, blue, green, blue, blue")) {
+                  display.println("blue path - green - blue - blue");
+                  display.display();
+                }
+
+                    //FIFTH STEP
+
+                    else if (myStr == ("start, blue, green, blue, blue, blue")) {
+                      display.println("blue path - green - blue - blue - blue");
+                      display.display();
+                    }
+                        
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, blue, green, blue, blue, blue, blue")) {
+                          display.println("blue path - green - blue - blue - blue - blue");
+                          display.display();
+                        }
+                                                
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, blue, green, blue, blue, blue, green")) {
+                          display.println("blue path - green - blue - blue - blue - green");
+                          display.display();
+                        }
+                    
+                    //FIFTH STEP
+
+                    else if (myStr == ("start, blue, green, blue, blue, green")) {
+                      display.println("blue path - green - blue - blue - green");
+                      display.display();
+                    }
+                                            
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, blue, green, blue, blue, green, blue")) {
+                          display.println("blue path - green - blue - blue - green - blue");
+                          display.display();
+                        }
+                                                                    
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, blue, green, blue, blue, green, green")) {
+                          display.println("blue path - green - blue - blue - green - green");
+                          display.display();
+                        }
+
+                //FOURTH STEP
+                
+                else if (myStr == ("start, blue, green, blue, green")) {
+                  display.println("blue path - green - blue - green");
+                  display.display();
+                }
+
+                    //FIFTH STEP
+
+                    else if (myStr == ("start, blue, green, blue, green, blue")) {
+                      display.println("blue path - green - blue - green - blue");
+                      display.display();
+                    }
+                        
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, blue, green, blue, green, blue, blue")) {
+                          display.println("blue path - green - blue - green - blue - blue");
+                          display.display();
+                        }
+                                                
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, blue, green, blue, green, blue, green")) {
+                          display.println("blue path - green - blue - green - blue - green");
+                          display.display();
+                        }
+                    
+                    //FIFTH STEP
+
+                    else if (myStr == ("start, blue, green, blue, green, green")) {
+                      display.println("blue path - green - blue - green - green");
+                      display.display();
+                    }
+
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, blue, green, blue, green, green, blue")) {
+                          display.println("blue path - green - blue - green - green - blue");
+                          display.display();
+                        }
+                                                                    
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, blue, green, blue, green, green, green")) {
+                          display.println("blue path - green - blue - green - green - green");
+                          display.display();
+                        }
+
+            //THIRD STEP
+            
+            else if (myStr == ("start, blue, green, green")) {
+              display.println("blue path - green - green");
+              display.display();
+            }
+
+                //FOURTH STEP
+                
+                else if (myStr == ("start, blue, green, green, blue")) {
+                  display.println("blue path - green - green - blue");
+                  display.display();
+                }
+
+                    //FIFTH STEP
+                    
+                    else if (myStr == ("start, blue, green, green, blue, blue")) {
+                      display.println("blue path - green - green - blue - blue");
+                      display.display();
+                    }
+                    
+                        //SIXTH STEP
+                        
+                        else if (myStr == ("start, blue, green, green, blue, blue, blue")) {
+                          display.println("blue path - green - green - blue - blue - blue");
+                          display.display();
+                        }
+                                            
+                        //SIXTH STEP
+                        
+                        else if (myStr == ("start, blue, green, green, blue, blue, green")) {
+                          display.println("blue path - green - green - blue - blue - green");
+                          display.display();
+                        }
+                    
+                    //FIFTH STEP
+                    
+                    else if (myStr == ("start, blue, green, green, blue, green")) {
+                      display.println("blue path - green - green - blue - green");
+                      display.display();
+                    }
+                                        
+                        //SIXTH STEP
+                        
+                        else if (myStr == ("start, blue, green, green, blue, green, blue")) {
+                          display.println("blue path - green - green - blue - green - blue");
+                          display.display();
+                        }
+                                                                
+                        //SIXTH STEP
+                        
+                        else if (myStr == ("start, blue, green, green, blue, green, green")) {
+                          display.println("blue path - green - green - blue - green - green");
+                          display.display();
+                        }
+
+                //FOURTH STEP
+                
+                else if (myStr == ("start, blue, green, green, green")) {
+                  display.println("blue path - green - green - green");
+                  display.display();
+                }
+
+                    //FIFTH STEP
+
+                    else if (myStr == ("start, blue, green, green, green, blue")) {
+                      display.println("blue path - green - green - green - blue");
+                      display.display();
+                    }
+                        
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, blue, green, green, green, blue, blue")) {
+                          display.println("blue path - green - green - green - blue - blue");
+                          display.display();
+                        }
+                                                
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, blue, green, green, green, blue, green")) {
+                          display.println("blue path - green - green - green - blue - green");
+                          display.display();
+                        }
+                    
+                    //FIFTH STEP
+
+                    else if (myStr == ("start, blue, green, green, green, green")) {
+                      display.println("blue path - green - green - green - green");
+                      display.display();
+                    } 
+                                       
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, blue, green, green, green, green, blue")) {
+                          display.println("blue path - green - green - green - green - blue");
+                          display.display();
+                        }
+                                                               
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, blue, green, green, green, green, green")) {
+                          display.println("blue path - green - green - green - green - green");
+                          display.display();
+                        }
+  
+                   
+  
+                                                                   ///////STORY PATH - GREEN///////
+
+                                                                   ///////STORY PATH - GREEN///////
+
+                                                                   ///////STORY PATH - GREEN///////
+
+
+  //FIRST STEP
+  
+  else if (myStr == ("start, green")) {
+    display.println("green path");
+    display.display();
+  }
+
+      //SECOND STEP
+      
+      else if (myStr == ("start, green, blue")) {
+        display.println("green path - blue");
+        display.display();
+      }
+
+            //THIRD STEP
+            
+            else if (myStr == ("start, green, blue, blue")) {
+              display.println("green path - blue - blue");
+              display.display();
+            }
+
+                //FOURTH STEP
+                
+                else if (myStr == ("start, green, blue, blue, blue")) {
+                  display.println("green path - blue - blue - blue");
+                  display.display();
+                }
+
+                    //FIFTH STEP
+                
+                    else if (myStr == ("start, green, blue, blue, blue, blue")) {
+                      display.println("green path - blue - blue - blue - blue");
+                      display.display();
+                    }
+                    
+                        //SIXTH STEP
+                    
+                        else if (myStr == ("start, green, blue, blue, blue, blue, blue")) {
+                          display.println("green path - blue - blue - blue - blue - blue");
+                          display.display();
+                        }
+                                            
+                        //SIXTH STEP
+                    
+                        else if (myStr == ("start, green, blue, blue, blue, blue, green")) {
+                          display.println("green path - blue - blue - blue - blue - green");
+                          display.display();
+                        }
+                  
+                    //FIFTH STEP
+                
+                    else if (myStr == ("start, green, blue, blue, blue, green")) {
+                      display.println("green path - blue - blue - blue - green");
+                      display.display();
+                    }
+                                     
+                        //SIXTH STEP
+                    
+                        else if (myStr == ("start, green, blue, blue, blue, green, blue")) {
+                          display.println("green path - blue - blue - blue - green - blue");
+                          display.display();
+                        }
+                                                              
+                        //SIXTH STEP
+                    
+                        else if (myStr == ("start, green, blue, blue, blue, green, green")) {
+                          display.println("green path - blue - blue - blue - green - green");
+                          display.display();
+                        }
+
+                //FOURTH STEP
+                
+                else if (myStr == ("start, green, blue, blue, green")) {
+                  display.println("green path - blue - blue - green")); 
+                  display.display();
+                }
+
+                    //FIFTH STEP
+                
+                    else if (myStr == ("start, green, blue, blue, green, blue")) {
+                      display.println("green path - blue - blue - green - blue");
+                      display.display();
+                    }
+                    
+                        //SIXTH STEP
+                    
+                        else if (myStr == ("start, green, blue, blue, green, blue, blue")) {
+                          display.println("green path - blue - blue - green - blue - blue");
+                          display.display();
+                        }
+                                            
+                        //SIXTH STEP
+                    
+                        else if (myStr == ("start, green, blue, blue, green, blue, green")) {
+                          display.println("green path - blue - blue - green - blue - green");
+                          display.display();
+                        }
+                    
+                    //FIFTH STEP
+                
+                    else if (myStr == ("start, green, blue, blue, green, green")) {
+                      display.println("green path - blue - blue - green - green");
+                      display.display();
+                    }
+                                        
+                        //SIXTH STEP
+                    
+                        else if (myStr == ("start, green, blue, blue, green, green, blue")) {
+                          display.println("green path - blue - blue - green - green - blue");
+                          display.display();
+                        }
+                                                                
+                        //SIXTH STEP
+                    
+                        else if (myStr == ("start, green, blue, blue, green, green, green")) {
+                          display.println("green path - blue - blue - green - green - green");
+                          display.display();
+                        }
+                    
+            //THIRD STEP
+            
+            else if (myStr == ("start, green, blue, green")) {
+             display.println("green path - blue - green");
+             display.display();
+            }
+
+                //FOURTH STEP
+                
+                else if (myStr == ("start, green, blue, green, blue")) {
+                  display.println("green path - blue - green - blue");
+                  display.display();
+                }
+
+                    //FIFTH STEP
+                
+                    else if (myStr == ("start, green, blue, green, blue, blue")) {
+                      display.println("green path - blue - green - blue - blue");
+                      display.display();
+                    }
+                        
+                        //SIXTH STEP
+                    
+                        else if (myStr == ("start, green, blue, green, blue, blue, blue")) {
+                          display.println("green path - blue - green - blue - blue - blue");
+                          display.display();
+                        }
+                                                
+                        //SIXTH STEP
+                    
+                        else if (myStr == ("start, green, blue, green, blue, blue, green")) {
+                          display.println("green path - blue - green - blue - blue - green");
+                          display.display();
+                        }
+                    
+                    //FIFTH STEP
+                
+                    else if (myStr == ("start, green, blue, green, blue, green")) {
+                      display.println("green path - blue - green - blue - green");
+                      display.display();
+                    }
+                                        
+                        //SIXTH STEP
+                    
+                        else if (myStr == ("start, green, blue, green, blue, green, blue")) {
+                          display.println("green path - blue - green - blue - green - blue");
+                          display.display();
+                        }   
+                                                             
+                        //SIXTH STEP
+                    
+                        else if (myStr == ("start, green, blue, green, blue, green, green")) {
+                          display.println("green path - blue - green - blue - green - green");
+                          display.display();
+                        }
+
+                //FOURTH STEP
+                else if (myStr == ("start, green, blue, green, green")) {
+                  display.println("green path - blue - green - green");
+                  display.display();
+                }
+
+                    //FIFTH STEP
+                
+                    else if (myStr == ("start, green, blue, green, green, blue")) {
+                      display.println("green path - blue - green - green - blue");
+                      display.display();
+                    }
+                    
+                        //SIXTH STEP
+                    
+                        else if (myStr == ("start, green, blue, green, green, blue, blue")) {
+                          display.println("green path - blue - green - green - blue - blue");
+                          display.display();
+                        }
+                                            
+                        //SIXTH STEP
+                    
+                        else if (myStr == ("start, green, blue, green, green, blue, green")) {
+                          display.println("green path - blue - green - green - blue - green");
+                          display.display();
+                        }
+                    
+                    //FIFTH STEP
+                
+                    else if (myStr == ("start, green, blue, green, green, green")) {
+                      display.println("green path - blue - green - green - green");
+                      display.display();
+                    }
+                                        
+                        //SIXTH STEP
+                    
+                        else if (myStr == ("start, green, blue, green, green, green, blue")) {
+                          display.println("green path - blue - green - green - green, blue");
+                          display.display();
+                        }
+                                                                
+                        //SIXTH STEP
+                    
+                        else if (myStr == ("start, green, blue, green, green, green, green")) {
+                          display.println("green path - blue - green - green - green, green");
+                          display.display();
+                        }
+
+      //SECOND STEP
+      
+      else if (myStr == ("start, green, green")) {
+         display.println("green path - green");
+         display.display();
+      }
+
+            //THIRD STEP
+             
+            else if (myStr == ("start, green, green, blue")) {
+             display.println("green path - green - blue");
+             display.display();
+            }
+
+                //FOURTH STEP
+                
+                else if (myStr == ("start, green, green, blue, blue")) {
+                  display.println("green path - green - blue - blue");
+                  display.display();
+                }
+
+                    //FIFTH STEP
+                    
+                    else if (myStr == ("start, green, green, blue, blue, blue")) {
+                      display.println("green path - green - blue - blue - blue");
+                      display.display();
+                    }
+                        
+                        //SIXTH STEP
+                        
+                        else if (myStr == ("start, green, green, blue, blue, blue, blue")) {
+                          display.println("green path - green - blue - blue - blue - blue");
+                          display.display();
+                        }
+                                                
+                        //SIXTH STEP
+                        
+                        else if (myStr == ("start, green, green, blue, blue, blue, green")) {
+                          display.println("green path - green - blue - blue - blue - green");
+                          display.display();
+                        }
+
+                    //FIFTH STEP
+                    
+                    else if (myStr == ("start, green, green, blue, blue, green")) {
+                      display.println("green path - green - blue - blue - green");
+                      display.display();
+                    }
+                    
+                        //SIXTH STEP
+                        
+                        else if (myStr == ("start, green, green, blue, blue, green, blue")) {
+                          display.println("green path - green - blue - blue - green - blue");
+                          display.display();
+                        }
+                                            
+                        //SIXTH STEP
+                        
+                        else if (myStr == ("start, green, green, blue, blue, green, green")) {
+                          display.println("green path - green - blue - blue - green - green");
+                          display.display();
+                        }
+
+                //FOURTH STEP
+                
+                else if (myStr == ("start, green, green, blue, green")) {
+                  display.println("green path - green - blue - green");
+                  display.display();
+                }
+
+                    //FIFTH STEP
+
+                    else if (myStr == ("start, green, green, blue, green, blue")) {
+                      display.println("green path - green - blue - green - blue");
+                      display.println();
+                    }
+                    
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, green, green, blue, green, blue, blue")) {
+                          display.println("green path - green - blue - green - blue - blue");
+                          display.println();
+                        }
+                                            
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, green, green, blue, green, blue, green")) {
+                          display.println("green path - green - blue - green - blue - green");
+                          display.println();
+                        }
+                    
+                    //FIFTH STEP
+
+                    else if (myStr == ("start, green, green, blue, green, green")) {
+                      display.println("green path - green - blue - green - green");
+                      display.println();
+                    }    
+                                    
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, green, green, blue, green, green, blue")) {
+                          display.println("green path - green - blue - green - green - blue");
+                          display.println();
+                        } 
+                                                           
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, green, green, blue, green, green, green")) {
+                          display.println("green path - green - blue - green - green - green");
+                          display.println();
+                        }
+
+          //THIRD STEP
+          
+            else if (myStr == ("start, green, green, green")) {
+            display.println("green path - green - green");
+            display.display();
+          }
+
+                //FOURTH STEP
+                
+                 else if (myStr == ("start, green, green, green, blue")) {
+                  display.println("green path - green - green - blue");
+                  display.display();
+                }
+                
+                    //FIFTH STEP
+
+                    else if (myStr == ("start, green, green, green, blue, blue")) {
+                      display.println("green path - green - green - blue - blue");
+                      display.println();
+                    }     
+                                    
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, green, green, green, blue, blue, blue")) {
+                          display.println("green path - green - green - blue - blue - blue");
+                          display.println();
+                        }     
+                                                            
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, green, green, green, blue, blue, green")) {
+                          display.println("green path - green - green - blue - blue - green");
+                          display.println();
+                        }     
+                               
+                    //FIFTH STEP
+
+                    else if (myStr == ("start, green, green, green, blue, green")) {
+                      display.println("green path - green - green - blue - green");
+                      display.println();
+                    }
+                                                   
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, green, green, green, blue, green, blue")) {
+                          display.println("green path - green - green - blue - green - blue");
+                          display.println();
+                        }
+                                                                           
+                        //SIXTH STEP
+    
+                        else if (myStr == ("start, green, green, green, blue, green, green")) {
+                          display.println("green path - green - green - blue - green - green");
+                          display.println();
+                        }
+
+                //FOURTH STEP
+                else if (myStr == ("start, green, green, green, green")) {
+                  display.println("green path - green - green - green");
+                  display.display();
+                }
+
+                     //FIFTH STEP
+
+                     else if (myStr == ("start, green, green, green, green, blue")) {
+                      display.println("green path - green - green - green - blue");
+                      display.println();
+                     }
+                     
+                         //SIXTH STEP
+    
+                         else if (myStr == ("start, green, green, green, green, blue, blue")) {
+                          display.println("green path - green - green - green - blue - blue");
+                          display.println();
+                         } 
+                                             
+                         //SIXTH STEP
+    
+                         else if (myStr == ("start, green, green, green, green, blue, green")) {
+                          display.println("green path - green - green - green - blue - green");
+                          display.println();
+                         }
+
+                     //FIFTH STEP
+
+                     else if (myStr == ("start, green, green, green, green, green")) {
+                      display.println("green path - green - green - green - green");
+                      display.display();
+                     }
+                   
+                         //SIXTH STEP
+    
+                         else if (myStr == ("start, green, green, green, green, green, blue")) {
+                          display.println("green path - green - green - green - green - blue");
+                          display.display();
+                         }
+                     
+                         //SIXTH STEP
+    
+                         else if (myStr == ("start, green, green, green, green, green, green")) {
+                          display.println("green path - green - green - green - green - green");
+                          display.display();
+                         }
+
+
+
+
+ ///end of loop
+}
