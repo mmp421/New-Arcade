@@ -72,7 +72,7 @@ void loop() {
 
   //COUNTING PUSHES
   if (buttonPushCounter == 0) {
-    display.println("start");
+    display.println("press your favorite button");
     display.display();
     buttonPushCounter++;
   }
@@ -97,7 +97,7 @@ void loop() {
   else if
   (buttonPushCounter >= 0 && backButton == HIGH) {
     commaPos = myStr.lastIndexOf(",");
-    myStr.remove(commaPos, commaPos);
+    myStr.remove(commaPos, myStr.length()-commaPos);
     count--;
     buttonPushCounter--;
 
@@ -106,39 +106,21 @@ void loop() {
   ///////STORY PATH
 
   else if (myStr == ("start, blue")) {
-    display.println("My friend George was");
-    Serial.println("isthisworkingblue");
-    display.display();
-  }
-
-    else if (myStr == ("starte, blue")) {
-    display.println("My friend George was");
+    display.println("my new arcade homework is");
     Serial.println("isthisworkingblue");
     display.display();
   }
 
   else if (myStr == ("start, blue, blue")) {
     Serial.println("isthisworking_blueblue");
-    display.println("a bully.");
+    display.println("working!");
     display.display();
   }
 
-  
-  else if (myStr == ("starte, blue, blue")) {
-    Serial.println("isthisworking_blueblue");
-    display.println("a bully.");
-    display.display();
-  }
-  
   else if (myStr == ("start, blue, green")) {
-    display.println("the nicest guy.");
+    display.println("definitely working!");
     display.display();
     Serial.println("isthisworking_bluegreen");
   }
-
-    else if (myStr == ("starte, blue, green")) {
-    display.println("the nicest guy.");
-    display.display();
-    Serial.println("isthisworking_bluegreen");
-  }
+  
 }
