@@ -1,0 +1,251 @@
+#include <SPI.h>
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+Adafruit_SSD1306 display = Adafruit_SSD1306(128, 32, & Wire);
+String myStr = "start";
+String inputb = "b";
+String inputg = "g";
+int count = 0;
+int commaPos = 0;
+int b = 0;
+int g = 0;
+int back = 0;
+int PushCounter = 0;
+const int bP = 2;
+const int bP2 = 7;
+const int bP3 = 13;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(bP, INPUT);
+  pinMode(bP2, INPUT);
+  pinMode(bP3, INPUT);
+  digitalWrite(bP, LOW);
+  digitalWrite(bP2, LOW);
+  digitalWrite(bP3, LOW);
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  
+  display.display();
+  delay(100);
+  display.clearDisplay();
+  display.display();
+}
+void loop() {
+  Serial.println(myStr);
+//  Serial.println(PushCounter);
+
+  delay(800);
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.setCursor(0, 0);
+  delay(100);
+  display.clearDisplay();
+  b = digitalRead(bP);
+  g = digitalRead(bP2);
+  back = digitalRead(bP3);
+  
+  if (PushCounter == 0) {
+    display.println(F("The tape recorder on the left?            Or the tape recorder on the right?"));
+    display.display();
+    PushCounter++; }
+  else if (b == HIGH) {
+    myStr += ", ";
+    myStr += inputb;
+    count++;
+    PushCounter++; } 
+  else if (g == HIGH) {
+    myStr += ", ";
+    myStr += inputg;
+    count++;
+    PushCounter++; }
+  else if
+  (PushCounter >= 0 && back == HIGH) {
+    commaPos = myStr.lastIndexOf(", ");
+    myStr.remove(commaPos, myStr.length()-commaPos);
+    count--;
+    PushCounter--;}
+  
+  //blue
+  else if (myStr == ("start, b")) {
+    display.println(F("''March 4th. My last week in charge of that unit. I remember telling the cadet"));
+    display.display();
+  }
+      else if (myStr == ("start, b, b")) {
+        display.println(F("to call me if anything went wrong, even ifit was a simple checkon a dead building."));
+        display.display();
+      }
+            else if (myStr == ("start, b, b, b")) {
+              display.println(F("He needed to sweep a building set for somefar-off demolition,  so I didn't expect "));
+              display.display();
+          }
+                else if (myStr == ("start, b, b, b, b")) {
+                  display.println(F("that I would once again be laying eyes on the figure that had haunted me for over"));
+                  display.display();
+                }
+                    else if (myStr == ("start, b, b, b, b, g")) {
+                      display.println(F("a year. Its attentionwas focused entirely on him, and I'd neverbeen more scared.''"));
+                      display.display();
+                    }
+                else if (myStr == ("start, b, b, b, g")) {
+                  display.println(F("to hear him tremblingon the end of a phonejust an hour after   I'd sent him off."));
+                  display.display();
+                }
+                    else if (myStr == ("start, b, b, b, g, b")) {
+                      display.println(F("But I didn't expect anyone else to come across it. Referring tolast March, here.''"));
+                      display.display();
+                    }
+            else if (myStr == ("start, b, b, g")) {
+              display.println(F("I've been called up  to assist with many  strange emergencies. Once - "));
+              display.display();
+          }
+                else if (myStr == ("start, b, b, g, b")) {
+                  display.println(F("- called to help with a door. Which would regularly be seen to swing open on its own"));
+                  display.display();
+                }
+                    else if (myStr == ("start, b, b, g, b, g")) {
+                      display.println(F("but had sealed when anew assignment to theoffice scoffed at    the idea of ghosts.''"));
+                      display.display();
+                    }
+                else if (myStr == ("start, b, b, g, g")) {
+                  display.println(F("- by my entire unit, in and out of hearingsnippets from decades-old wars"));
+                  display.display();
+                }
+                    else if (myStr == ("start, b, b, g, g, b")) {
+                      display.println(F("on the very walkie-talkies they were      trying to call me    from.''"));
+                      display.display();
+                    }
+      else if (myStr == ("start, b, g")) {
+        display.println(F("I would help him if  he ever needed it.   Which is why I'm asking for lenience, now."));
+        display.display();
+      }
+            else if (myStr == ("start, b, g, b")) {
+              display.println(F("You can't imagine thefear. Like a night ofbeing lost in the    jungle, all at once."));
+              display.display();
+            }
+                else if (myStr == ("start, b, g, b, b")) {
+                  display.println(F("When I was in my first year of conscription, I saw it twice -  blinking in and out "));
+                  display.display();
+                }
+                    else if (myStr == ("start, b, g, b, b, g")) {
+                      display.println(F("from a window in thatexact building. But  there's no report, I never filed one.''"));
+                      display.display();
+                    }
+                else if (myStr == ("start, b, g, b, g")) {
+                  display.println(F("When I entered the half-finished floor andsaw him rush towards me in relief,"));
+                  display.display();
+                }
+                    else if (myStr == ("start, b, g, b, g, b")) {
+                      display.println(F("I watched its face asit followed him.     Never tell him it wassmiling.''"));
+                      display.display();
+                    }
+            else if (myStr == ("start, b, g, g")) {
+              display.println(F("Think of the officer who once heard a     child crying in the  middle of the night"));
+              display.display();
+            }
+                else if (myStr == ("start, b, g, g, b")) {
+                  display.println(F("during the Hungry    Ghost month. And     despite that, tracking the cries to the"));
+                  display.display();
+                }
+                    else if (myStr == ("start, b, g, g, b, g")) {
+                      display.println(F("shower, where he saw a small toy wash downthe drain. And saw itmany times after.''"));
+                      display.display();
+                    }
+                else if (myStr == ("start, b, g, g, g")) {
+                  display.println(F("and enter his barracks, with what seemed to be a grandmother intow. Who started to"));
+                  display.display();
+                }
+                    else if (myStr == ("start, b, g, g, g, g")) {
+                      display.println(F("count the heads of soldiers while they slept. 4, 3, 2 -himself.We let him leave.''"));
+                      display.display();
+                    } 
+
+//GREEN 
+  else if (myStr == ("start, g")) {
+    display.println(F("''I can't remember everbeing so scared in my life. It was my   second"));
+    display.display();
+  }
+      else if (myStr == ("start, g, b")) {
+        display.println(F("day patrolling the   old Raffles school   building. I heard"));
+        display.display();
+      }
+            else if (myStr == ("start, g, b, b")) {
+              display.println(F("a noise coming from the basement. 'Basement' really just a steep drop from the main"));
+              display.display();
+            }
+                else if (myStr == ("start, g, b, b, b")) {
+                  display.println(F("floor, prevented by arickety set of stairsand a thin, temporarypartition wall."));
+                  display.display();
+                }
+                    else if (myStr == ("start, g, b, b, b, b")) {
+                      display.println(F("No one was supposed to be inside, due to the scheduled demolition. Except for me.''"));
+                      display.display();
+                    }
+                else if (myStr == ("start, g, b, b, g")) {
+                  display.println(F("floor. I opened the flimsy door to it, andcast my eyes down thestairs. I saw")); 
+                  display.display();
+                }
+                    else if (myStr == ("start, g, b, b, g, g")) {
+                      display.println(F("something perched on the bannister, like abird. Under its hair it was smiling.''"));
+                      display.display();
+                    }
+            else if (myStr == ("start, g, b, g")) {
+             display.println(F("my commander tell me he would help out if I needed anything - almost like he knew."));
+             display.display();
+            }
+                else if (myStr == ("start, g, b, g, b")) {
+                  display.println(F("When the Perching Thing started to cry at me, I called him to come immediately."));
+                  display.display();
+                }
+                    else if (myStr == ("start, g, b, g, b, b")) {
+                      display.println(F("I don't know when thenoise really stopped,but there was silence when I hung up.''"));
+                      display.display();
+                    }
+                else if (myStr == ("start, g, b, g, g")) {
+                  display.println(F("He would be white as a sheet the next timeI saw him, when he screamed at me to run."));
+                  display.display();
+                }
+                    else if (myStr == ("start, g, b, g, g, g")) {
+                      display.println(F("I realize now that hemust have been able  to see it completely,without partition.''"));
+                      display.display();
+                    }
+      else if (myStr == ("start, g, g")) {
+         display.println(F("month of conscriptionin the National Army.In the weeks prior,  I'd been told"));
+         display.display();
+      }
+            else if (myStr == ("start, g, g, b")) {
+             display.println(F("many tales. Studying for war was studying a whole new cartography of my country -"));
+             display.display();
+            }
+                else if (myStr == ("start, g, g, b, b")) {
+                  display.println(F("- legends of urban legends. But the Raffles building didn't come with any rumors."));
+                  display.display();
+                }
+                    else if (myStr == ("start, g, g, b, b, g")) {
+                      display.println(F("I don't know if that made me more or less scared, in the end.''"));
+                      display.display();
+                    }
+                else if (myStr == ("start, g, g, b, g")) {
+                  display.println(F("- a series of field assignments in the middle of ghost stories.''"));
+                  display.display();
+                }
+            else if (myStr == ("start, g, g, g")) {
+            display.println(F("stories of things fellow officers saw in other to-be-torn-down facilities. Like the"));
+            display.display();
+          }
+                 else if (myStr == ("start, g, g, g, b")) {
+                  display.println(F("one where my bunkmatescreamed after a lizard crawled up his pants leg, and called"));
+                  display.display();
+                }     
+                    else if (myStr == ("start, g, g, g, b, g")) {
+                      display.println(F("his two brothers to find out the exact same thing had just happened to them, too.''"));
+                      display.display();
+                    }
+                else if (myStr == ("start, g, g, g, g")) {
+                  display.println(F("room my older bunkmates came across in a final check. Covered in leaves, spread out"));
+                  display.display();
+                }
+                     else if (myStr == ("start, g, g, g, g, g")) {
+                      display.println(F("completely evenly. Stuck to the walls, floor, and ceiling with a strange sap.''"));
+                      display.display();
+                     }                     
+}
